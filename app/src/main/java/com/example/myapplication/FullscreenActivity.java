@@ -9,12 +9,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends AppCompatActivity {
+
+    private SimpleCounter counter = null;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -89,6 +92,10 @@ public class FullscreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (counter == null) {
+            counter = new SimpleCounter();
+        }
+
         setContentView(R.layout.activity_fullscreen);
 
         mVisible = true;
@@ -126,6 +133,7 @@ public class FullscreenActivity extends AppCompatActivity {
         } else {
             show();
         }
+        counter.add();
     }
 
     private void hide() {
@@ -148,6 +156,8 @@ public class FullscreenActivity extends AppCompatActivity {
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         mVisible = true;
+
+       ((TextView)findViewById(R.id.fullscreen_content)).setText(String.valueOf(counter.getValue()));
 
         // Schedule a runnable to display UI elements after a delay
         mHideHandler.removeCallbacks(mHidePart2Runnable);
