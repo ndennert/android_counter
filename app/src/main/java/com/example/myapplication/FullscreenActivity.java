@@ -18,6 +18,8 @@ import android.widget.TextView;
 public class FullscreenActivity extends AppCompatActivity {
 
     private SimpleCounter counter = null;
+
+    private SimpleCounter counter1,counter2,counter3,counter4,counter5,counter6;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -67,26 +69,6 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     };
     private boolean mVisible;
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +76,12 @@ public class FullscreenActivity extends AppCompatActivity {
 
         if (counter == null) {
             counter = new SimpleCounter();
+            counter1 = new SimpleCounter();
+            counter2 = new SimpleCounter();
+            counter3 = new SimpleCounter();
+            counter4 = new SimpleCounter();
+            counter5 = new SimpleCounter();
+            counter6 = new SimpleCounter();
         }
 
         setContentView(R.layout.activity_fullscreen);
@@ -103,73 +91,48 @@ public class FullscreenActivity extends AppCompatActivity {
         mContentView = findViewById(R.id.fullscreen_content);
 
 
-        // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.editText1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggle();
+                counter1.add();
+                ((TextView)view).setText(String.valueOf(counter1.getValue()));
             }
         });
-
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100);
-    }
-
-    private void toggle() {
-        if (mVisible) {
-            hide();
-        } else {
-            show();
-        }
-        counter.add();
-    }
-
-    private void hide() {
-        // Hide UI first
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-        mControlsView.setVisibility(View.GONE);
-        mVisible = false;
-
-        // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable);
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
-    }
-
-    @SuppressLint("InlinedApi")
-    private void show() {
-        // Show the system bar
-        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        mVisible = true;
-
-       ((TextView)findViewById(R.id.fullscreen_content)).setText(String.valueOf(counter.getValue()));
-
-        // Schedule a runnable to display UI elements after a delay
-        mHideHandler.removeCallbacks(mHidePart2Runnable);
-        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
-    }
-
-    /**
-     * Schedules a call to hide() in delay milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+        findViewById(R.id.editText2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counter2.add();
+                ((TextView)view).setText(String.valueOf(counter2.getValue()));
+            }
+        });
+        findViewById(R.id.editText3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counter3.add();
+                ((TextView)view).setText(String.valueOf(counter3.getValue()));
+            }
+        });
+        findViewById(R.id.editText4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counter4.add();
+                ((TextView)view).setText(String.valueOf(counter4.getValue()));
+            }
+        });
+        findViewById(R.id.editText5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counter5.add();
+                ((TextView)view).setText(String.valueOf(counter5.getValue()));
+            }
+        });
+        findViewById(R.id.editText6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counter6.add();
+                ((TextView)view).setText(String.valueOf(counter6.getValue()));
+            }
+        });
     }
 }
