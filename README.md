@@ -1,1 +1,1 @@
-small android project for learning java
+A small Android project for learning Java
