@@ -17,9 +17,8 @@ import android.widget.TextView;
  */
 public class FullscreenActivity extends AppCompatActivity {
 
-    private SimpleCounter counter = null;
+    private SimpleCounter counterCustom = null;
 
-    private SimpleCounter counter1,counter2,counter3,counter4,counter5,counter6;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -74,15 +73,7 @@ public class FullscreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (counter == null) {
-            counter = new SimpleCounter();
-            counter1 = new SimpleCounter();
-            counter2 = new SimpleCounter();
-            counter3 = new SimpleCounter();
-            counter4 = new SimpleCounter();
-            counter5 = new SimpleCounter();
-            counter6 = new SimpleCounter();
-        }
+        counterCustom = new SimpleCounter();
 
         setContentView(R.layout.activity_fullscreen);
 
@@ -90,48 +81,12 @@ public class FullscreenActivity extends AppCompatActivity {
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
-
-
-        findViewById(R.id.editText1).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.layout).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                counter1.add();
-                ((TextView)view).setText(String.valueOf(counter1.getValue()));
-            }
-        });
-        findViewById(R.id.editText2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                counter2.add();
-                ((TextView)view).setText(String.valueOf(counter2.getValue()));
-            }
-        });
-        findViewById(R.id.editText3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                counter3.add();
-                ((TextView)view).setText(String.valueOf(counter3.getValue()));
-            }
-        });
-        findViewById(R.id.editText4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                counter4.add();
-                ((TextView)view).setText(String.valueOf(counter4.getValue()));
-            }
-        });
-        findViewById(R.id.editText5).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                counter5.add();
-                ((TextView)view).setText(String.valueOf(counter5.getValue()));
-            }
-        });
-        findViewById(R.id.editText6).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                counter6.add();
-                ((TextView)view).setText(String.valueOf(counter6.getValue()));
+            public void onClick(View v) {
+                counterCustom.add();
+                TextView counterView = (TextView) findViewById(R.id.counter);
+                counterView.setText(String.valueOf(counterCustom.getValue()));
             }
         });
     }
